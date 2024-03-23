@@ -7,6 +7,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 
 const AppError = require('./utils/appError');
@@ -74,7 +75,7 @@ app.use(
   })
 );
 
-
+app.use(compression());
 
 
 // Test middleware
