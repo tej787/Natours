@@ -49,8 +49,9 @@ const createBookingCheckout = async session => {
   console.log('createBookingCheckout called'); // Log when createBookingCheckout is called
 
   const tour = session.client_reference_id;
+  console.log('tour', tour);
   const user = (await User.findOne({ email: session.customer_email })).id;
-
+  console.log('user', user);
   // Check if display_items exists in the session object and if it has at least one item
   if (session.display_items && session.display_items.length > 0) {
     const price = session.display_items[0].amount / 100;
