@@ -23,7 +23,28 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   console.log('Tour:', tour); // Log the tour
 
   const session = await stripe.checkout.sessions.create({
-    // session data
+    payment_method_types: ['card'],
+    success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=booking`,
+    cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
+    customer_email: req.user.email,
+    client_reference_id: req.params.tourId,
+    line_items: [
+      {
+        price_data: {
+          currency: 'inr',
+          product_data: {
+            name: `${tour.name} Tour`,
+            description: tour.summary,
+            images: [
+              `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`
+            ],
+          },
+          unit_amount: tour.price * 100,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
   });
   console.log('Session:', session); // Log the session
 
