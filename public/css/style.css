@@ -1384,3 +1384,102 @@ body {
   text-align: center;
   
 }
+
+.reviewbtn::after{
+  background-color: white;
+  color: black;
+}
+.reviewbtn {
+  background-color: white;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 171px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  margin: auto; /* Center horizontally */
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust top margin as needed */
+}
+
+.btn-center{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 171px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  margin: auto; /* Center horizontally */
+  margin-bottom: 30px;
+
+}
+.add-review-form{
+  margin-top: 30px;
+}
+
+.user-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.user-rating-star {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1px;
+  cursor: pointer;
+}
+
+.user-rating-star--active {
+  fill: #55c57a;
+}
+
+.user-rating-star--inactive {
+  fill: #bbb;
+}
+
+.visually-hidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.form__inputtextarea {
+  display: block;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: inherit;
+  padding: 1.25rem 1.75rem;
+  border: none;
+  width: 100%;
+  height: 150px;
+  background-color: #fff;
+  background-color: #f2f2f2;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Pseudo element (a visible thing that isn't really in the DOM).
+      Also needs -ms- */
+}
+.form__inputtextarea:focus {
+  outline: none;
+  border-bottom: 3px solid #55c57a;
+}
+.form__inputtextarea:focus:invalid {
+  border-bottom: 3px solid #ff7730;
+}
+.form__inputtextarea::-webkit-input-placeholder {
+  color: #bbb;
+}

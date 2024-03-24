@@ -1,0 +1,44 @@
+extends base
+
+block content
+  section.section-header
+    .header__hero
+      .header__hero-overlay &nbsp;
+      img.header__hero-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour.name}`)
+
+    .heading-box
+      h1.heading-primary
+        span= `${tour.name} tour`
+      .heading-box__group
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-clock')
+          span.heading-box__text= `${tour.duration} days`
+        .heading-box__detail
+          svg.heading-box__icon
+            use(xlink:href='/img/icons.svg#icon-map-pin')
+          span.heading-box__text= tour.startLocation.description
+
+  .add-review-form
+    h2.heading-secondary.ma-bt-lg Add Your Review
+    form.form.form--add-review
+
+      
+      input(type='hidden', name='tourId' , id="tourId", value=tour._id)
+      .form__group
+        label.form__label(for='rating') Rating
+        select#rating.form__input.form__select(name='rating', required)
+          option(value='1') 1 Star
+          option(value='1.5') 1.5 Stars
+          option(value='2') 2 Stars
+          option(value='2.5') 2.5 Stars
+          option(value='3') 3 Stars
+          option(value='3.5') 3.5 Stars
+          option(value='4') 4 Stars
+          option(value='4.5') 4.5 Stars
+          option(value='5') 5 Stars
+      .form__group
+        label.form__label(for='review') Your Review
+        textarea#review.form__inputtextarea.form__textarea(placeholder='Your review', required)
+      .form__group
+        button.btn.btn--green.btn-center#submit-review Add Review

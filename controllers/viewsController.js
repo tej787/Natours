@@ -44,6 +44,24 @@ exports.getTour = catchAsync(async (req, res, next) => {
   });
 });
 
+
+exports.getReview= catchAsync(async (req, res, next) => {
+  // 1) Get the data, for the requested tour (including reviews and guides)
+  const tour = await Tour.findOne({ slug: req.params.slug })
+  
+  if (!tour) {
+    return next(new AppError('There is no tour with that name.', 404));
+  }
+
+  // 2) Build template
+  // 3) Render template using data from 1)
+  res.status(200).render('review', {
+    title: `Add Review ${tour.name} Tour`,
+    tour
+  });
+});
+
+
 exports.getLoginForm = (req, res) => {
   res.status(200).render('login', {
     title: 'Log into your account'
@@ -55,6 +73,8 @@ exports.getSignupForm = (req, res) => {
     title: 'Sign up your account'
   });
 };
+
+
 
 exports.getAccount = (req, res) => {
   res.status(200).render('account', {

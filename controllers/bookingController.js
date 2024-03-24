@@ -46,7 +46,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 
 
 const createBookingCheckout = async session => {
-  console.log('createBookingCheckout called'); // Log when createBookingCheckout is called
+ 
 
   const tour = session.client_reference_id;
 
@@ -70,7 +70,7 @@ exports.webhookCheckout = (req, res, next) => {
   } catch (err) {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
-  console.log(event.type)
+  
   if (event.type === 'checkout.session.completed')
     createBookingCheckout(event.data.object);
 

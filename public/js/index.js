@@ -3,6 +3,7 @@ import '@babel/polyfill';
 import { displayMap } from './mapbox';
 import { login, logout } from './login';
 import { signup } from './signup';
+import { redirectToReviewPage ,addreview } from './review';
 
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
@@ -15,6 +16,8 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const addreviewBtn = document.getElementById('add-review');
+const submitreviewBtn = document.getElementById('submit-review');
 const signupForm = document.querySelector('.signup-form');
 
 
@@ -84,3 +87,21 @@ if (bookBtn)
 
   const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 20);
+
+if (addreviewBtn){
+  addreviewBtn.addEventListener('click', e => {
+    redirectToReviewPage()
+  });
+  
+}
+
+if (submitreviewBtn){
+  submitreviewBtn.addEventListener('click', async e => {
+    e.preventDefault();
+    const review = document.getElementById('review').value;
+    const rating = document.getElementById('rating').value;
+    const tour = document.getElementById('tourId').value;
+
+    addreview(review,rating,tour);
+  });
+}

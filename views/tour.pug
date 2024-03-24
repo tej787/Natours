@@ -5,7 +5,6 @@ block append head
   script(src='https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.5.0/build/ol.js')
   link(rel='stylesheet' href='https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.5.0/css/ol.css')
 
-
 mixin overviewBox(label, text, icon)
   .overview-box__detail
     svg.overview-box__icon
@@ -75,6 +74,8 @@ block content
     .reviews
       each review in tour.reviews
         +reviewCard(review)
+    .button-container
+      button.btn.reviewbtn#add-review Add Review
 
   section.section-cta
     .cta
@@ -88,5 +89,6 @@ block content
       
         if user
           button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Book tour now!
+          
         else
           a.btn.btn--green.span-all-rows(href='/login') Log in to book tour
