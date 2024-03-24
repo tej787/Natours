@@ -53,15 +53,15 @@ const createBookingCheckout = async session => {
   const user = (await User.findOne({ email: session.customer_email })).id;
   console.log('user', user);
   console.log(  session)
-  // Check if line_items exists in the session object and if it has at least one item
-  if (session.line_items && session.line_items.length > 0) {
-    const price = session.line_items[0].unit_amount / 100;
+  // Check if data exists in the session object and if it has at least one item
+  if (session.data && session.data.length > 0) {
+    const price = session.data.object.amount_total / 100;
     console.log('Price:', price); // Print the price
 
     const booking = await Booking.create({ tour, user, price });
     console.log('Booking:', booking); // Log the booking
   } else {
-    console.log('line_items does not exist or is empty');
+    console.log('data does not exist or is empty');
   }
 };
 
