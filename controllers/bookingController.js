@@ -52,7 +52,7 @@ const createBookingCheckout = async session => {
   console.log('tour', tour);
   const user = (await User.findOne({ email: session.customer_email })).id;
   console.log('user', user);
-  console.log( await session.line_items)
+  console.log( await session)
   // Check if line_items exists in the session object and if it has at least one item
   if (session.line_items && session.line_items.length > 0) {
     const price = session.line_items[0].unit_amount / 100;
