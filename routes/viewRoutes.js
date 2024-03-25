@@ -19,6 +19,8 @@ router.get('/tour/:slug/review', authController.isLoggedIn, viewsController.getR
 router.get('/me', authController.protect, viewsController.getAccount);
 
 router.get('/my-tours', authController.protect, viewsController.getMyTours);
+router.get('/my-reviews', authController.protect, viewsController.getMyReview);
+
 
 router.post(
   '/submit-user-data',

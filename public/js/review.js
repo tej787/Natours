@@ -37,3 +37,26 @@ export const redirectToReviewPage = () => {
   // Redirect the user to the modified URL
   window.location.href = reviewUrl;
 };
+
+
+export const deleteReview = async (reviewId) => {
+  const confirmDelete = window.confirm('Are you sure you want to delete this review?');
+  if (!confirmDelete) return;
+
+  try {
+    const res = await axios({
+      method: 'DELETE',
+      url: `/api/v1/reviews/${reviewId}`
+    });
+
+    if (res.status === 204) {
+      showAlert('success', 'Deleted review successfully!');
+      window.setTimeout(() => {
+        location.assign('/my-reviews')
+      }, 1500);
+    }
+  } catch (err) {
+    showAlert('error', err.response.data.message);
+  }
+};
+

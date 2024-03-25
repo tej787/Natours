@@ -3,7 +3,7 @@ import '@babel/polyfill';
 import { displayMap } from './mapbox';
 import { login, logout } from './login';
 import { signup } from './signup';
-import { redirectToReviewPage ,addreview } from './review';
+import { redirectToReviewPage ,addreview ,deleteReview} from './review';
 
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
@@ -105,3 +105,11 @@ if (submitreviewBtn){
     addreview(review,rating,tour);
   });
 }
+
+document.querySelectorAll('.btn--green-review').forEach(button => {
+  button.addEventListener('click', function() {
+    const reviewId = this.dataset.id;
+    deleteReview(reviewId);
+  });
+});
+

@@ -1,4 +1,5 @@
-// review / rating / createdAt / ref to tour / ref to user
+// reviewModel.js
+
 const mongoose = require('mongoose');
 const Tour = require('./tourModel');
 
@@ -37,14 +38,6 @@ const reviewSchema = new mongoose.Schema(
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
 
 reviewSchema.pre(/^find/, function(next) {
-  // this.populate({
-  //   path: 'tour',
-  //   select: 'name'
-  // }).populate({
-  //   path: 'user',
-  //   select: 'name photo'
-  // });
-
   this.populate({
     path: 'user',
     select: 'name photo'
@@ -65,38 +58,26 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
       }
     }
   ]);
-  // console.log(stats);
 
-  if (stats.length > 0) {
-    await Tour.findByIdAndUpdate(tourId, {
-      ratingsQuantity: stats[0].nRating,
-      ratingsAverage: stats[0].avgRating
-    });
-  } else {
-    await Tour.findByIdAndUpdate(tourId, {
-      ratingsQuantity: 0,
-      ratingsAverage: 4.5
-    });
-  }
+  const nRating = stats.length > 0 ? stats[0].nRating : 0;
+  const avgRating = stats.length > 0 ? stats[0].avgRating : 4.5;
+
+  await Tour.findByIdAndUpdate(tourId, {
+    ratingsQuantity: nRating,
+    ratingsAverage: avgRating
+  });
 };
 
-reviewSchema.post('save', function() {
-  // this points to current review
-  this.constructor.calcAverageRatings(this.tour);
+reviewSchema.post('save', function(doc) {
+  this.constructor.calcAverageRatings(doc.tour);
 });
 
-// findByIdAndUpdate
-// findByIdAndDelete
-reviewSchema.pre(/^findOneAnd/, async function(next) {
-  this.r = await this.findOne();
-  // console.log(this.r);
-  next();
-});
+// Middleware for updating average ratings after findOneAndUpdate and findOneAndDelete
+const recalculateAverageRatings = async function(doc) {
+  await doc.constructor.calcAverageRatings(doc.tour);
+};
 
-reviewSchema.post(/^findOneAnd/, async function() {
-  // await this.findOne(); does NOT work here, query has already executed
-  await this.r.constructor.calcAverageRatings(this.r.tour);
-});
+reviewSchema.post(/^findOneAnd/, recalculateAverageRatings);
 
 const Review = mongoose.model('Review', reviewSchema);
 

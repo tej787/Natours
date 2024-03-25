@@ -1483,3 +1483,20 @@ body {
 .form__inputtextarea::-webkit-input-placeholder {
   color: #bbb;
 }
+
+.my-review-conter{
+  margin: auto;
+}
+.review-card{
+  
+  padding-bottom: 10px;
+}
+
+.btn--green-review {
+  background-color: #55c57a;
+  color: #fff;
+  margin-top: 10px;
+}
+.btn--green::after {
+  background-color: #55c57a;
+}
