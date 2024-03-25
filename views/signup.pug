@@ -2,9 +2,9 @@ extends base
 
 block content
   main.main
-    .signup-form
+    .login-form
       h2.heading-secondary.ma-bt-lg Create your account
-      form.form.form--signup(action='/signup', method='POST')
+      form.form.form--signup
         .form__group
           label.form__label(for='name') Your Name
           input#name.form__input(type='text', placeholder='Your Name', required)

@@ -115,7 +115,7 @@ exports.getMyReview = catchAsync(async (req, res, next) => {
     return next(new AppError('There Is Not Reviews.', 200));
   }
 
-  res.status(200).render('test', {
+  res.status(200).render('myreviews', {
     title: 'My Reviews',
     reviews
   });
