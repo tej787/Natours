@@ -1,0 +1,19 @@
+extends base
+
+block content
+    main.main
+        .reset-form
+            div(style='text-align: center; ')
+                img(src='/img/open-mail.png' style='height: 70px; width: 70px; margin-bottom: 20px ;')
+            div(style='text-align: center;  margin-bottom:-28px')
+                h2.heading-secondary.ma-bt-lg(style='text-align: center;')  Check Your Email !!
+            form.form.form--login(style='text-align: center; ') 
+                .form__group
+                    p.reviews__text(style=' font-weight: bold;') We sent a password reset link to your register email address !!
+                .form__group
+                    button.btn.btn--green(onclick="window.open('https://mail.google.com', '_blank')") Open Email
+                .form__group
+                    p.text-form= `Didn't receive the email?` 
+                    a.forgot-link(href='/users/forgotPassword') Click to resend
+                    
+                

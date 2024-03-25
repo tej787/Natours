@@ -1243,6 +1243,27 @@ body {
   padding: 5rem 7rem;
   border-radius: 5px;
 }
+
+.reset-form {
+  margin: 0 auto;
+  max-width: 55rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  padding: 5rem 7rem;
+  border-radius: 5px;
+}
+
+.forgot-form {
+  margin: 0 auto;
+  max-width: 55rem;
+  background-color: #fff;
+  -webkit-box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2.5rem 8rem 2rem rgba(0, 0, 0, 0.06);
+  padding: 5rem 7rem;
+  border-radius: 5px;
+}
+
 .form__input {
   display: block;
   font-family: inherit;
@@ -1507,4 +1528,27 @@ body {
 }
 .btn--green::after {
   background-color: #55c57a;
+}
+
+.forgot-link {
+  color: #3498db;
+  font-size: 16px;
+  text-decoration:  none; 
+  margin: 10px 0; 
+  
+}
+.text-form {
+  font-size: 16px;
+  text-decoration:  none; 
+  margin: 10px 0; 
+  
+}
+
+
+.btn--red {
+  background-color: red;
+  color: #fff;
+}
+.btn--green::red {
+  background-color: red;
 }

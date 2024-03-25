@@ -1,0 +1,19 @@
+extends base
+
+block content
+    main.main
+        .reset-form
+            div(style='text-align: center; ')
+                img(src='/img/reset.png' style='height: 70px; width: 70px; margin-bottom: 20px ;')
+            div(style='text-align: center; ')
+                h2.heading-secondary.ma-bt-lg Reset Your Password !!
+            form.form.form--login
+                .form__group
+                    label.form__label(for='password') Password
+                    input#password.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                .form__group
+                    label.form__label(for='passwordConfirm') Confirm Password
+                    input#passwordConfirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
+                .form__group(style='text-align: center; ')
+                    button.btn.btn--green Reset
+                    input(type='hidden', name='resetToken', id='resetToken', value=resetToken)

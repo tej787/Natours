@@ -1,0 +1,15 @@
+extends base
+
+block content
+    main.main
+        .forgot-form
+            div(style='text-align: center; ')
+                img(src='/img/mobile-password.png' style='height: 70px; width: 70px; margin-bottom: 20px ;')
+            div(style='text-align: center; ')
+                h2.heading-secondary.ma-bt-lg Check Your Email !!
+            form.form.form--login
+                .form__group
+                    label.form__label(for='email') Email 
+                    input#email.form__input(type='email', placeholder='you@example.com', required)
+                .form__group(style='text-align: center; ')
+                    button.btn.btn--green Submit

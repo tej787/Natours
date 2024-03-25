@@ -121,6 +121,25 @@ exports.getMyReview = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getForgotForm = catchAsync(async (req, res, next) => {
+  res.status(200).render('forgotForm', {
+    title: 'Forgot Password',
+  });
+});
+
+exports.getAfterForgotPage = catchAsync(async (req, res, next) => {
+  res.status(200).render('afterForgotPage', {
+    title: 'Forgot Password',
+  });
+});
+
+exports.getResetForm = catchAsync(async (req, res, next) => {
+  res.status(200).render('resetForm', {
+    title: 'Reset Password',
+    resetToken: req.params.resetToken
+  });
+});
+
 
 exports.updateUserData = catchAsync(async (req, res, next) => {
   const updatedUser = await User.findByIdAndUpdate(

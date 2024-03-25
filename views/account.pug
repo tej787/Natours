@@ -12,10 +12,9 @@ block content
     .user-view
       nav.user-view__menu
         ul.side-nav
-          +navItem('#', 'Settings', 'settings', true)
+          +navItem('/me', 'Settings', 'settings', true)
           +navItem('/my-tours', 'My bookings', 'briefcase')
           +navItem('/my-reviews', 'My reviews', 'star')
-          +navItem('#', 'Billing', 'credit-card')
 
         - if (user.role === 'admin')
           .admin-nav
@@ -66,3 +65,6 @@ block content
               input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
             .form__group.right
               button.btn.btn--small.btn--green.btn--save-password Save password
+            .form__group(style='text-align: center; margin-top: 80px;')
+              button.btn.btn--small.btn--red.btn--save-password#deleteAccount(style='text-align: center; ') Delete Account
+              

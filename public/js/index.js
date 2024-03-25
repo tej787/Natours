@@ -4,6 +4,8 @@ import { displayMap } from './mapbox';
 import { login, logout } from './login';
 import { signup } from './signup';
 import { redirectToReviewPage ,addreview ,deleteReview} from './review';
+import { forgotPassword , resetPassword} from './password';
+import {deleteAccount} from './deleteAccount';
 
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
@@ -16,9 +18,15 @@ const logOutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const bookBtn = document.getElementById('book-tour');
+const deleteAcoountBtn = document.getElementById('deleteAccount');
+
 const addreviewBtn = document.getElementById('add-review');
 const submitreviewBtn = document.getElementById('submit-review');
 const signupForm = document.querySelector('.signup-form');
+const forgotForm = document.querySelector('.forgot-form');
+const resetForm = document.querySelector('.reset-form');
+
+
 
 
 // DELEGATION
@@ -27,22 +35,39 @@ if (mapBox) {
 }
 
 if (loginForm)
-  loginForm.addEventListener('submit', e => {
+  loginForm.addEventListener('submit', async e => {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    login(email, password);
+
+    const submitButton = e.target.querySelector('button');
+    submitButton.textContent = 'Login...';
+
+    // Call the forgotPassword function
+    await login(email, password);;
+
+    // Change the button text back to "Submit"
+    submitButton.textContent = 'Login';
+    
   });
 
   if (signupForm)
-  signupForm.addEventListener('submit', e => {
+  signupForm.addEventListener('submit',async e => {
     e.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const submitButton = e.target.querySelector('button');
+    submitButton.textContent = 'Submitting...';
 
-    signup(name, email, password, passwordConfirm);
+    
+    await signup(name, email, password, passwordConfirm);
+
+    
+    submitButton.textContent = 'Sign Up';
+
+    
   });
 
 if (logOutBtn) logOutBtn.addEventListener('click', logout);
@@ -78,6 +103,32 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
   });
 
+  if (forgotForm)
+  forgotForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const submitButton = e.target.querySelector('button');
+    
+    // Change the button text to "Sending..."
+    submitButton.textContent = 'Sending...';
+
+    // Call the forgotPassword function
+    await forgotPassword(email);
+
+    // Change the button text back to "Submit"
+    submitButton.textContent = 'Submit';
+  });
+
+  if (resetForm)
+  resetForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const password = document.getElementById('password').value;
+  const passwordConfirm = document.getElementById('passwordConfirm').value;
+  const resetToken = document.getElementById('resetToken').value;
+  resetPassword(resetToken, password, passwordConfirm);
+});
+
+
 if (bookBtn)
   bookBtn.addEventListener('click', e => {
     e.target.textContent = 'Processing...';
@@ -85,7 +136,13 @@ if (bookBtn)
     bookTour(tourId);
   });
 
-  const alertMessage = document.querySelector('body').dataset.alert;
+  if (deleteAcoountBtn)
+  deleteAcoountBtn.addEventListener('click', e => {
+    deleteAccount();
+  });
+
+  
+const alertMessage = document.querySelector('body').dataset.alert;
 if (alertMessage) showAlert('success', alertMessage, 20);
 
 if (addreviewBtn){

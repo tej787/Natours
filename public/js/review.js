@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { showAlert } from './alerts';
 
-export const addreview = async (review, rating,tour) => {
+export const addreview = async (review, rating, tour) => {
   try {
     const res = await axios({
       method: 'POST',
@@ -16,7 +16,14 @@ export const addreview = async (review, rating,tour) => {
     if (res.data.status === 'success') {
       showAlert('success', 'Your review has been added successfully! This will be help us to improve service! \n Thank You!!');
       window.setTimeout(() => {
-        location.assign('/');
+        // Get the current URL
+        let url = window.location.href;
+
+        // Remove '/review' from the end of the URL
+        url = url.replace('/review', '');
+
+        // Redirect to the modified URL
+        location.assign(url);
       }, 1500);
     }
   } catch (err) {
