@@ -3,7 +3,7 @@ import { showAlert } from './alerts';
 
 
 export const deleteAccount = async () => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this Account?');
+    const confirmDelete = window.confirm('Are you sure you want to deactivate this Account?');
     if (!confirmDelete) return;
     
     try {
