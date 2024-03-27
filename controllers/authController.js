@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
@@ -167,7 +168,12 @@ exports.restrictTo = (...roles) => {
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 1) Get user based on POSTed email
-  const user = await User.findOne({ email: req.body.email });
+  req.isActiveAccountRoute = true;
+
+  const user = await User.findOne({ email: req.body.email }).setOptions({ isActiveAccountRoute: req.isActiveAccountRoute });
+
+
+  console.log(req.url)
   if (!user) {
     return next(new AppError('There is no user with email address.', 404));
   }
@@ -205,12 +211,14 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     .createHash('sha256')
     .update(req.params.token)
     .digest('hex');
-
+  
+  req.isActiveAccountRoute = true;
   const user = await User.findOne({
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() }
-  });
+  }).setOptions({ isActiveAccountRoute: req.isActiveAccountRoute });
 
+  
   // 2) If token has not expired, and there is user, set the new password
   if (!user) {
     return next(new AppError('Token is invalid or has expired', 400));
@@ -219,6 +227,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   user.passwordConfirm = req.body.passwordConfirm;
   user.passwordResetToken = undefined;
   user.passwordResetExpires = undefined;
+  user.active= true;
   await user.save();
 
   // 3) Update changedPasswordAt property for the user

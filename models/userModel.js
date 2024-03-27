@@ -72,7 +72,9 @@ userSchema.pre('save', function(next) {
 
 userSchema.pre(/^find/, function(next) {
   // this points to the current query
-  this.find({ active: { $ne: false } });
+  if (!this.getOptions().isActiveAccountRoute ) {
+    this.find({ active: { $ne: false } });
+  }
   next();
 });
 
